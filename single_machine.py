@@ -1,10 +1,6 @@
 """
-single_machine.py
-Run this FIRST for your demo — establishes the baseline.
 Uses the full dataset on one machine with plain gradient descent.
 
-Usage:
-    python single_machine.py
 """
 
 import numpy as np
@@ -13,9 +9,9 @@ import time
 import json
 import os
 
-# ── Hyperparameters ────────────────────────────────────────────────────────────
-LEARNING_RATE = 0.01
-EPOCHS        = 200
+# Hyperparameters 
+LEARNING_RATE = 0.001
+EPOCHS        = 1000
 DATA_PATH     = "data/full_dataset.csv"
 RESULTS_DIR   = "results"
 
@@ -84,21 +80,21 @@ def main():
     print("  SINGLE-MACHINE LINEAR REGRESSION BASELINE")
     print("=" * 55)
 
-    # ── Load ──────────────────────────────────────────────────
+    # Load 
     print(f"\n[1] Loading data from {DATA_PATH} ...")
     X, y = load_data(DATA_PATH)
     print(f"    Samples: {len(X):,}   Features: {X.shape[1]}")
 
-    # ── Normalize ─────────────────────────────────────────────
+    # Normalize 
     X_norm, mean, std = normalize(X)
 
-    # ── Train ─────────────────────────────────────────────────
+    # Train 
     print(f"\n[2] Training  (lr={LEARNING_RATE}, epochs={EPOCHS}) ...")
     t0 = time.perf_counter()
     w, b, history = train(X_norm, y, LEARNING_RATE, EPOCHS)
     elapsed = time.perf_counter() - t0
 
-    # ── Metrics ───────────────────────────────────────────────
+    # Metrics 
     y_pred = X_norm @ w + b
     metrics = {
         "mode"         : "single_machine",
@@ -116,7 +112,7 @@ def main():
         "loss_history" : history,
     }
 
-    # ── Save ──────────────────────────────────────────────────
+    # Save 
     out_path = os.path.join(RESULTS_DIR, "single_machine_results.json")
     with open(out_path, "w") as f:
         json.dump(metrics, f, indent=2)
