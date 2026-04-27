@@ -1,12 +1,8 @@
 """
-generate_norm_stats.py
-━━━━━━━━━━━━━━━━━━━━━━
 Run this ONCE on whichever machine holds the full dataset (or both
 partitions).  It computes global mean/std from all available data
 and writes data/norm_stats.json.
 
-Then copy norm_stats.json to every node before training:
-    scp data/norm_stats.json user@worker:/path/to/project/data/
 """
 
 import numpy as np

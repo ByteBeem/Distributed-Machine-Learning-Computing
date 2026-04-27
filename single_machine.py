@@ -10,8 +10,8 @@ import json
 import os
 
 # Hyperparameters 
-LEARNING_RATE = 0.001
-EPOCHS        = 50
+LEARNING_RATE = 0.01
+EPOCHS        = 200
 DATA_PATH     = "data/full_dataset.csv"
 RESULTS_DIR   = "results"
 

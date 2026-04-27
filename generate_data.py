@@ -10,27 +10,30 @@ It will produce:
 import numpy as np
 import pandas as pd
 import os
+from sklearn.datasets import fetch_california_housing
 
 np.random.seed(42)
-N = 10_000          # total samples
-FEATURES = 5        # number of input features
-NOISE = 15.0        # noise level
 
-# True weights the model should learn
-true_weights = np.array([3.5, -2.1, 4.8, 1.2, -3.3])
-true_bias    = 7.0
+# Load California Housing dataset
+print("Loading California Housing dataset...")
+housing = fetch_california_housing()
+X = housing.data
+y = housing.target
 
-X = np.random.randn(N, FEATURES)
-y = X @ true_weights + true_bias + np.random.randn(N) * NOISE
+# Feature names from the dataset
+feature_names = housing.feature_names
 
 # Build DataFrame
-cols = [f"feature_{i}" for i in range(FEATURES)]
-df = pd.DataFrame(X, columns=cols)
+df = pd.DataFrame(X, columns=feature_names)
 df["target"] = y
+
+N = len(df)
+FEATURES = len(feature_names)
 
 os.makedirs("data", exist_ok=True)
 df.to_csv("data/full_dataset.csv", index=False)
 print(f"Full dataset saved: {len(df)} rows, {FEATURES} features")
+print(f"Features: {', '.join(feature_names)}")
 
 # Split 50/50 for two nodes
 mid = N // 2

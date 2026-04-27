@@ -19,7 +19,7 @@ PORT = 8443
 PARTITION_PATH = "data/partition_0.csv"
 NORM_PATH = "data/norm_stats.json"
 
-FEATURES = 5
+FEATURES = 8
 LOGS_DIR = "logs"
 
 os.makedirs(LOGS_DIR, exist_ok=True)

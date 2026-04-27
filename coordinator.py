@@ -21,9 +21,9 @@ NORM_PATH = "data/norm_stats.json"
 RESULTS_DIR = "results"
 LOGS_DIR = "logs"
 
-LEARNING_RATE = 0.001
-EPOCHS = 50
-FEATURES = 5
+LEARNING_RATE = 0.01
+EPOCHS = 200
+FEATURES = 8
 
 os.makedirs(RESULTS_DIR, exist_ok=True)
 os.makedirs(LOGS_DIR, exist_ok=True)
