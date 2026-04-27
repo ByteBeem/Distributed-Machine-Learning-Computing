@@ -160,7 +160,7 @@ def main():
             b -= LEARNING_RATE * gb
 
             loss = mse(y, X @ w + b)
-            loss_history.append(loss)
+            loss_history.append({"epoch": epoch, "loss": loss})
 
             pbar.set_postfix({
                 "loss": f"{loss:.4f}",
