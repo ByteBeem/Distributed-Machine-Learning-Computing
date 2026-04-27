@@ -22,7 +22,7 @@ RESULTS_DIR = "results"
 LOGS_DIR = "logs"
 
 LEARNING_RATE = 0.001
-EPOCHS = 2000
+EPOCHS = 50
 FEATURES = 5
 
 os.makedirs(RESULTS_DIR, exist_ok=True)

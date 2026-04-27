@@ -11,7 +11,7 @@ import os
 
 # Hyperparameters 
 LEARNING_RATE = 0.001
-EPOCHS        = 1000
+EPOCHS        = 50
 DATA_PATH     = "data/full_dataset.csv"
 RESULTS_DIR   = "results"
 
