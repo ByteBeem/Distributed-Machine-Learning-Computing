@@ -6,9 +6,9 @@
 **Distributed Machine Learning**
 *Gradient Averaging for Linear Regression Across Multiple Nodes*
 
-- Student: [Your Name]
+- Student: Donald Mxolisi Mohlala
 - Course: COS 300
-- Date: [Today's Date]
+- Date: 2026/04/27
 - Architecture: 1 Coordinator + 1 Worker Node
 
 ---
