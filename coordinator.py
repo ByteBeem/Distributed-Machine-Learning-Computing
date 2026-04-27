@@ -68,6 +68,14 @@ def mse(y, yp):
     return float(np.mean((y - yp) ** 2))
 
 
+def rmse(y, yp):
+    return float(np.sqrt(np.mean((y - yp) ** 2)))
+
+
+def mae(y, yp):
+    return float(np.mean(np.abs(y - yp)))
+
+
 def r2(y, yp):
     return float(1 - np.sum((y - yp) ** 2) / np.sum((y - np.mean(y)) ** 2))
 
@@ -115,6 +123,7 @@ def main():
     # Model
     w = np.zeros(FEATURES)
     b = 0.0
+    loss_history = []
 
     start = time.perf_counter()
 
@@ -151,6 +160,7 @@ def main():
             b -= LEARNING_RATE * gb
 
             loss = mse(y, X @ w + b)
+            loss_history.append(loss)
 
             pbar.set_postfix({
                 "loss": f"{loss:.4f}",
@@ -163,6 +173,32 @@ def main():
     send_array(conn, np.array([-999.0]))
     conn.close()
     server.close()
+
+
+    # ── Final metrics ─────────────────────────────────────────────────────────
+    y_pred_final = X @ w + b
+    metrics = {
+        "mode"             : "distributed",
+        "node"             : "coordinator",
+        "total_samples"    : n_total,
+        "local_samples"    : n_local,
+        "worker_samples"   : n_worker,
+        "features"         : FEATURES,
+        "epochs"           : EPOCHS,
+        "learning_rate"    : LEARNING_RATE,
+        "training_time_sec": round(elapsed, 4),
+        "final_mse"        : round(mse(y, y_pred_final), 4),
+        "final_rmse"       : round(rmse(y, y_pred_final), 4),
+        "final_mae"        : round(mae(y, y_pred_final), 4),
+        "r2_score"         : round(r2(y, y_pred_final), 4),
+        "weights"          : w.tolist(),
+        "bias"             : round(float(b), 4),
+        "loss_history"     : loss_history,
+    }
+ 
+    out_path = os.path.join(RESULTS_DIR, "distributed_results.json")
+    with open(out_path, "w") as f:
+        json.dump(metrics, f, indent=2)
 
     print("\nFinished Training")
     print("Time:", elapsed)
